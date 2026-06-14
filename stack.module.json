@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "forgejo-runner",
+  "repo": "forgejo-runner-stack-module",
+  "runtimeId": "forgejo-runner",
+  "lifecycle": "active",
+  "dependencies": [
+    "forgejo",
+    "stack-foundation"
+  ],
+  "overlays": [
+    "stack.compose/forgejo-runner.yml",
+    "stack.config/forgejo-runner",
+    "stack.containers/forgejo-runner"
+  ]
+}
