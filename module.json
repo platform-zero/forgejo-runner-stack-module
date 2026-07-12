@@ -1,0 +1,44 @@
+{
+  "configuration": {
+    "schema": {
+      "additionalProperties": false,
+      "properties": {},
+      "type": "object"
+    }
+  },
+  "id": "forgejo-runner",
+  "overlays": [
+    "stack.compose/forgejo-runner.yml",
+    "stack.config/forgejo-runner",
+    "stack.containers/forgejo-runner"
+  ],
+  "provides": [
+    {
+      "capability": "module:forgejo-runner",
+      "version": "1"
+    }
+  ],
+  "requires": [
+    {
+      "capability": "module:forgejo",
+      "version": "1"
+    },
+    {
+      "capability": "module:stack-foundation",
+      "version": "1"
+    }
+  ],
+  "schemaVersion": 1,
+  "services": [
+    {
+      "name": "forgejo-runner",
+      "routes": [],
+      "volumes": []
+    }
+  ],
+  "verification": {
+    "commands": [
+      "test -f stack.module.json && test -f module.json"
+    ]
+  }
+}
