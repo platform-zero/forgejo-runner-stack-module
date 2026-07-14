@@ -6,7 +6,7 @@
 - Lifecycle: `active`
 
 ## Owned overlays
-- `stack.compose/forgejo-runner.yml`
+- `stack.runtime.yaml`
 - `stack.config/forgejo-runner`
 - `stack.containers/forgejo-runner`
 

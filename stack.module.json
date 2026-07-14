@@ -18,7 +18,6 @@
   "smoke": "external-only",
   "smokeUnsupportedReason": "requires generated bundle context, deployed networking, secrets, or service dependencies",
   "overlays": [
-    "stack.compose/forgejo-runner.yml",
     "stack.config/forgejo-runner",
     "stack.containers/forgejo-runner",
     "stack.runtime.yaml"
