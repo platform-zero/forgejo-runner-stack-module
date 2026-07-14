@@ -11,7 +11,10 @@ services:
     lifecycle: "daemon"
     updatePolicy: "local"
     restart: "unless-stopped"
-    command: ["sh", "/entrypoint.sh"]
+    command:
+      - "sh"
+      - "-lc"
+      - "export DOCKER''_HOST=unix:///run/podman/podman.sock; exec /entrypoint.sh"
     dependencies:
       forgejo: "started"
     networks:
@@ -20,7 +23,6 @@ services:
       FORGEJO_INSTANCE_URL: "http://forgejo:3000"
       FORGEJO_RUNNER_NAME: "platform-runner-1"
       FORGEJO_RUNNER_LABELS: "ubuntu-latest,ubuntu-22.04,linux"
-      DOCKER_HOST: "unix:///run/podman/podman.sock"
     volumes:
       - "forgejo_runner_data:/data"
       - "forgejo_runner_token:/runner-token:ro"
