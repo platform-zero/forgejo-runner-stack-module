@@ -1,0 +1,41 @@
+schemaVersion: 1
+module: forgejo-runner
+target: apps
+services:
+  forgejo-runner:
+    image: "localhost/webservices/forgejo-runner:bundle"
+    build:
+      context: "./stack.containers/forgejo-runner"
+      containerfile: "Dockerfile"
+    containerName: "forgejo-runner"
+    lifecycle: "daemon"
+    updatePolicy: "local"
+    restart: "unless-stopped"
+    command: ["sh", "/entrypoint.sh"]
+    dependencies:
+      forgejo: "started"
+    networks:
+      caddy: {}
+    environment:
+      FORGEJO_INSTANCE_URL: "http://forgejo:3000"
+      FORGEJO_RUNNER_NAME: "platform-runner-1"
+      FORGEJO_RUNNER_LABELS: "ubuntu-latest,ubuntu-22.04,linux"
+      DOCKER_HOST: "unix:///run/podman/podman.sock"
+    volumes:
+      - "forgejo_runner_data:/data"
+      - "forgejo_runner_token:/runner-token:ro"
+      - "./configs/forgejo-runner:/etc/forgejo-runner:ro"
+      - "./configs/forgejo-runner/entrypoint.sh:/entrypoint.sh:ro"
+      - "%t/podman/podman.sock:/run/podman/podman.sock"
+      - "${FORGEJO_RUNNER_SSH_DIR:?Set FORGEJO_RUNNER_SSH_DIR to a dedicated runner-only SSH directory}:/root/.ssh:ro"
+    health:
+      test: ["CMD-SHELL", "pgrep -f forgejo-runner || exit 1"]
+      interval: "30s"
+      timeout: "10s"
+      retries: 3
+      start_period: "30s"
+volumes:
+  forgejo_runner_data:
+    hostPath: "${STACK_VOLUME_ROOT}/forgejo_runner_data"
+  forgejo_runner_token:
+    hostPath: "${STACK_VOLUME_ROOT}/forgejo_runner_token"

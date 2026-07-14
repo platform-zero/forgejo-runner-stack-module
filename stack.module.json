@@ -10,8 +10,7 @@
   ],
   "runtimeDependencies": [
     "forgejo",
-    "stack-foundation",
-    "docker-proxy"
+    "stack-foundation"
   ],
   "contracts": [
     "module-contract"
@@ -21,7 +20,8 @@
   "overlays": [
     "stack.compose/forgejo-runner.yml",
     "stack.config/forgejo-runner",
-    "stack.containers/forgejo-runner"
+    "stack.containers/forgejo-runner",
+    "stack.runtime.yaml"
   ],
   "testAssets": []
 }

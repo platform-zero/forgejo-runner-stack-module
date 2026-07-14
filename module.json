@@ -10,7 +10,8 @@
   "overlays": [
     "stack.compose/forgejo-runner.yml",
     "stack.config/forgejo-runner",
-    "stack.containers/forgejo-runner"
+    "stack.containers/forgejo-runner",
+    "stack.runtime.yaml"
   ],
   "provides": [
     {
