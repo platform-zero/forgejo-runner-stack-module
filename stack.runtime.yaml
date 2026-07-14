@@ -6,7 +6,7 @@ services:
     image: "localhost/webservices/forgejo-runner:bundle"
     build:
       context: "./stack.containers/forgejo-runner"
-      containerfile: "Dockerfile"
+      containerfile: "Containerfile"
     containerName: "forgejo-runner"
     lifecycle: "daemon"
     updatePolicy: "local"
