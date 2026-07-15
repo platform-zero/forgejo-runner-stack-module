@@ -29,7 +29,7 @@ services:
       - "./configs/forgejo-runner:/etc/forgejo-runner:ro"
       - "./configs/forgejo-runner/entrypoint.sh:/entrypoint.sh:ro"
       - "%t/podman/podman.sock:/run/podman/podman.sock"
-      - "${FORGEJO_RUNNER_SSH_DIR:?Set FORGEJO_RUNNER_SSH_DIR to a dedicated runner-only SSH directory}:/root/.ssh:ro"
+      - "/mnt/stack/forgejo-runner-ssh:/root/.ssh:ro"
     health:
       test: ["CMD-SHELL", "pgrep -f forgejo-runner || exit 1"]
       interval: "30s"
