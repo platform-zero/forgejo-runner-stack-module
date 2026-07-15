@@ -20,7 +20,7 @@ services:
     networks:
       caddy: {}
     environment:
-      FORGEJO_INSTANCE_URL: "http://forgejo:3000"
+      FORGEJO_INSTANCE_URL: "https://forgejo.${DOMAIN}"
       FORGEJO_RUNNER_NAME: "platform-runner-1"
       FORGEJO_RUNNER_LABELS: "ubuntu-latest,ubuntu-22.04,linux"
     volumes:
