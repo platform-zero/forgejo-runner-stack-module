@@ -12,7 +12,8 @@ log() {
 }
 
 wait_for_forgejo() {
-  until nc -z forgejo 3000; do
+  health_url="${FORGEJO_INSTANCE_URL%/}/api/healthz"
+  until curl -fsS "$health_url" >/dev/null 2>&1; do
     log 'Waiting for Forgejo API...'
     sleep 5
   done
