@@ -42,6 +42,18 @@ wait_for_runner_token() {
   return 1
 }
 
+clear_stale_runner_state() {
+  if [ ! -f "$RUNNER_STATE_FILE" ]; then
+    return 0
+  fi
+
+  state_address="$(jq -r '.address // ""' "$RUNNER_STATE_FILE" 2>/dev/null || true)"
+  if [ -n "$state_address" ] && [ "$state_address" != "$FORGEJO_INSTANCE_URL" ]; then
+    log "Runner registration targets $state_address; re-registering for $FORGEJO_INSTANCE_URL"
+    rm -f "$RUNNER_STATE_FILE"
+  fi
+}
+
 register_runner() {
   runner_token="$(cat "$RUNNER_TOKEN_FILE")"
   log 'Registering runner with Forgejo...'
@@ -71,6 +83,7 @@ is_stale_registration() {
 main() {
   log 'Starting runner initialization...'
   wait_for_forgejo
+  clear_stale_runner_state
 
   attempt=1
   while [ "$attempt" -le "$FORGEJO_RUNNER_MAX_RECOVERY_ATTEMPTS" ]; do
