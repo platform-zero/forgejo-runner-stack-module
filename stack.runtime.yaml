@@ -39,5 +39,3 @@ services:
 volumes:
   forgejo_runner_data:
     hostPath: "${STACK_VOLUME_ROOT}/forgejo_runner_data"
-  forgejo_runner_token:
-    hostPath: "${STACK_VOLUME_ROOT}/forgejo_runner_token"
