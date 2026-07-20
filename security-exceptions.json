@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "exceptions": [
+    {
+      "rule": "container-socket-mount",
+      "path": "stack.runtime.yaml",
+      "reason": "Forgejo Actions jobs require the dedicated rootless Podman API to create their isolated job containers.",
+      "mitigations": [
+        "The runner uses a dedicated unprivileged host account and socket.",
+        "Job execution is restricted to trusted organization repositories."
+      ]
+    }
+  ]
+}
