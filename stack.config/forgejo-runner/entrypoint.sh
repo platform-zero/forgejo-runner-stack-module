@@ -21,10 +21,18 @@ wait_for_forgejo() {
 }
 
 wait_for_runner_token() {
+  if [ ! -r /runner-token ]; then
+    log 'ERROR: /runner-token is not readable; the shared volume must be mounted for container UID 0'
+    return 1
+  fi
   log 'Waiting for Forgejo to generate token...'
   retries=60
   i=1
   while [ "$i" -le "$retries" ]; do
+    if [ -e "$RUNNER_TOKEN_FILE" ] && [ ! -r "$RUNNER_TOKEN_FILE" ]; then
+      log "ERROR: $RUNNER_TOKEN_FILE exists but is not readable"
+      return 1
+    fi
     if [ -f "$RUNNER_TOKEN_FILE" ]; then
       runner_token="$(cat "$RUNNER_TOKEN_FILE")"
       if [ -n "$runner_token" ]; then

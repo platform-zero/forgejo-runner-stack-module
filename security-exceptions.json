@@ -9,6 +9,15 @@
         "The runner uses a dedicated unprivileged host account and socket.",
         "Job execution is restricted to trusted organization repositories."
       ]
+    },
+    {
+      "rule": "container-root-default",
+      "path": "stack.runtime.yaml",
+      "reason": "The runner must read the token volume written by Forgejo under the producer container root identity.",
+      "mitigations": [
+        "The runner uses its dedicated unprivileged host account and rootless Podman service.",
+        "The token volume is scoped to Forgejo and the runner only."
+      ]
     }
   ]
 }
