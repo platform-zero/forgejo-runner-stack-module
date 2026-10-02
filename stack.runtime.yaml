@@ -11,6 +11,10 @@ services:
     lifecycle: "daemon"
     updatePolicy: "local"
     restart: "unless-stopped"
+    # The shared token volume is owned by the producer's container-root mapping.
+    # Running as container root is still rootless at the host boundary and makes
+    # the cross-authority handoff readable without broad host permissions.
+    user: "0:0"
     command:
       - "sh"
       - "-lc"
