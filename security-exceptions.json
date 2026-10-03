@@ -2,6 +2,15 @@
   "schemaVersion": 1,
   "exceptions": [
     {
+      "rule": "container-root-default",
+      "path": "stack.runtime.yaml",
+      "reason": "The runner must read the token volume produced with container-root ownership by the separate Forgejo authority.",
+      "mitigations": [
+        "Container UID 0 maps to the dedicated unprivileged runner host account.",
+        "The shared token and SSH key mounts are read only inside the runner."
+      ]
+    },
+    {
       "rule": "container-socket-mount",
       "path": "stack.runtime.yaml",
       "reason": "Forgejo Actions jobs require the dedicated rootless Podman API to create their isolated job containers.",
